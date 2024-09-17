@@ -56,6 +56,9 @@ class PostProcessor(BasePostProcessor):
             predictions = docs[doc]
             predictions = predictions.round(decimals=4)
             for idx, row in predictions.iterrows():
+                # Remove unlabeled tokens
+                if row["label"] == "":
+                    continue
                 df_list.append(row.to_dict())
         return df_list
 
